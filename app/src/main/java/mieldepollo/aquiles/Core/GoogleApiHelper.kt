@@ -9,6 +9,11 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationServices
 
 class GoogleApiHelper(internal var context: Context) : GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+
+    companion object {
+        private val TAG = GoogleApiHelper::class.java.simpleName
+    }
+
     var googleApiClient: GoogleApiClient? = null
         internal set
 
@@ -18,24 +23,18 @@ class GoogleApiHelper(internal var context: Context) : GoogleApiClient.Connectio
     }
 
     fun connect() {
-        if (googleApiClient != null) {
-            googleApiClient!!.connect()
-        }
+        googleApiClient?.connect()
     }
 
     fun disconnect() {
-        if (googleApiClient != null && googleApiClient!!.isConnected) {
-            googleApiClient!!.disconnect()
+        if(googleApiClient?.isConnected ?: false) {
+            googleApiClient?.disconnect()
         }
     }
 
     val isConnected: Boolean
         get() {
-            if (googleApiClient != null) {
-                return googleApiClient!!.isConnected
-            } else {
-                return false
-            }
+            return googleApiClient?.isConnected ?: false
         }
 
     private fun buildGoogleApiClient() {
@@ -58,10 +57,5 @@ class GoogleApiHelper(internal var context: Context) : GoogleApiClient.Connectio
 
     override fun onConnectionFailed(connectionResult: ConnectionResult) {
         Log.d(TAG, "onConnectionFailed: connectionResult.toString() = " + connectionResult.toString())
-    }
-
-    companion object {
-
-        private val TAG = GoogleApiHelper::class.java.simpleName
     }
 }
