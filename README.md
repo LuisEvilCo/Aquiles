@@ -1,5 +1,5 @@
 # Aquiles
-This is meant to be an Adnroid App to get sensor data out of a human 
+This is meant to be an Android App to get sensor data out of a human 
 
 + what he does 
 + calories 
